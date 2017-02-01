@@ -3,9 +3,10 @@ package main
 import (
 	"fmt"
 	"reflect"
+	"strconv"
 )
 
-type AnimalBehavior interface {
+type Animal interface {
 	Shout(content string, times int, receiver string) []int
 }
 
@@ -60,11 +61,20 @@ func Info(o interface{}) {
 func main() {
 	peta := Dog{Pet: Pet{1, 3, "bobo"}, dog_type: "husky"}
 	petb := Cat{Pet: Pet{2, 4, "mimi"}, cat_type: "garfield"}
-	return_peta := peta.Shout("hi", 2, "master")
-	fmt.Println("return peta", return_peta)
-	petb.Shout("hello", 1, "sleep")
+	var animal Animal
 
-	Info(peta)
+	var addr byte = 127
+	fmt.Println(strconv.Itoa(int(addr)))
+
+	animal = peta
+	animal.Shout("hi", 2, "master")
+	// return_peta := peta.Shout("hi", 2, "master")
+	// fmt.Println("return peta", return_peta)
+
+	animal = petb
+	animal.Shout("hello", 1, "sleep")
+
+	Info(animal)
 
 	v1 := reflect.ValueOf(petb)
 	m1 := v1.MethodByName("Shout")
